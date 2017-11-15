@@ -64,18 +64,18 @@ function escape(str) {
   return div.innerHTML;
 }
 
-function renderTweets(tweet) {
-  for (let tweetId in tweetData) {
-    let tweet = tweetData[tweetId];
-    let $tweet = $("section.tweets-dash").append(`
+function renderTweets(tweets) {
+  for (let tweetId in tweets) {
+    let tweet = tweets[tweetId];
+    let $tweet = $("section.tweets-dash").prepend(`
       <article class="tweet">
         <header>
-          <img class="avatar" src="${escape(tweet.user.avatars.small)}" alt=""></img>
+          <img class="avatar" src="${tweet.user.avatars.small}" alt=""></img>
           <h2>${escape(tweet.user.name)}</h2>
           <h4>${escape(tweet.user.handle)}</h4>
         </header>
         <p>${escape(tweet.content.text)}</p>
-        <footer> ${escape(daysAgo(tweet.created_at))}
+        <footer> ${daysAgo(tweet.created_at)}
           <div class="icons">
             <i class="fa fa-flag" aria-hidden="true"></i>
             <i class="fa fa-retweet" aria-hidden="true"></i>
@@ -86,54 +86,34 @@ function renderTweets(tweet) {
   }
 }
 
-// function createTweetElement(tweet) {
-//   const $tweet = $("section.tweets-dash").append(`
-//     <article class="tweet">
-//       <header>
-//         <img class="avatar" src="${escape(tweet.user.avatars.small)}" alt=""></img>
-//         <h2>${escape(tweet.user.name)}</h2>
-//         <h4>${escape(tweet.user.handle)}</h4>
-//       </header>
-//       <p>${escape(tweet.content.text)}</p>
-//       <footer> ${escape(daysAgo(tweet.created_at))}
-//         <div class="icons">
-//           <i class="fa fa-flag" aria-hidden="true"></i>
-//           <i class="fa fa-retweet" aria-hidden="true"></i>
-//           <i class="fa fa-heart" aria-hidden="true"></i>
-//         </div>
-//       </footer>
-//     </article>`);
-//   return $tweet;
-// };
+function loadTweets(tweet) {
+  $.getJSON("/tweets")
+    // .done((tweet) => {
+    //   console.log(tweet);
+    // })
+    .done((tweet) => {
+      renderTweets(tweet)
+    })
+}
 
-//currently returns text=[inputted text]
 function sendNewTweet(event) {
   event.preventDefault();
   const $form = $(this);
-
-  $.ajax({
-    type: "POST",
-    url: "/tweets",
-    data: $form.serialize()
-  })
-
-  console.log($form.serialize());
-
-  // .done(() => {
-  //   const type = $form.find("input[name="type"]").val();
-  //   console.log(type);
-  // })
-}
-
-//currently console logs all tweet objects created
-function loadTweets(tweetData) {
-  $.getJSON("/tweets")
-    .done((tweetData) => {
-      console.log(tweetData);
+  const tweetText = $form.find('textarea[name="text"]').val();
+  if (!tweetText) {
+    alert("You didn't seem to tweet anything. Please try again.");
+  } else if (tweetText.length > 140) {
+    alert("Your tweet is over 140 characters long. Please try again.");
+  } else {
+    $.ajax({
+      type: "POST",
+      url: "/tweets",
+      data: $form.serialize(),
     })
-    .done((tweetData) => {
-      renderTweets(tweetData)
+    .done(() => {
+      $(".tweets-dash").prepend(loadTweets(tweetText));
     })
+  };
 }
 
 const $form = $("#send-tweet");
@@ -141,7 +121,6 @@ const $form = $("#send-tweet");
 $form.on("submit", sendNewTweet);
 
 loadTweets(tweetData);
-//renderTweets(tweetData);
 
 });
 
