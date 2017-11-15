@@ -1,10 +1,15 @@
 section.tweets-dash {
   background-color: white;
+}
+
+article.tweet {
   border: solid lightgray 1px;
   border-radius: 5px;
-  margin: 1em 2em 0 2em;
+  margin: 1em 2em 1em 2em;
   overflow: hidden;
+
 }
+
 
 article.tweet header {
   background-color: #f4f4f4;
