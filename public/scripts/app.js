@@ -1,9 +1,4 @@
-// const moment = require('moment');
-
-// moment.format();
-
-// Test / driver code (temporary). Eventually will get this from the server.
-var tweetData = [
+const tweetData = [
   {
     "user": {
       "name": "Newton",
@@ -50,23 +45,41 @@ var tweetData = [
   }
 ];
 
+$(() => {
+
+function daysAgo(numDate) {
+  const dateObj = new Date(numDate);
+  const compare = Date.now() - dateObj;
+  const numOfDays = Math.round(compare / (1000*60*60*24));
+  if (numOfDays > 0) {
+    return numOfDays + " days ago";
+  } else {
+    return "today";
+  }
+}
+
+function escape(str) {
+  const div = document.createElement('div');
+  div.appendChild(document.createTextNode(str));
+  return div.innerHTML;
+}
+
 function renderTweets(tweet) {
-  for (tweet in tweetData) {
+  for (let tweet in tweetData) {
     createTweetElement(tweetData[tweet]);
   }
 }
 
 function createTweetElement(tweet) {
-
   const $tweet = $("section.tweets-dash").append(`
     <article class="tweet">
       <header>
-        <img class="avatar" src="${tweet.user.avatars.small}" alt=""></img>
-        <h2>${tweet.user.name}</h2>
-        <h4>${tweet.user.handle}</h4>
+        <img class="avatar" src="${escape(tweet.user.avatars.small)}" alt=""></img>
+        <h2>${escape(tweet.user.name)}</h2>
+        <h4>${escape(tweet.user.handle)}</h4>
       </header>
-      <p>${tweet.content.text}</p>
-      <footer> ${tweet.created_at}
+      <p>${escape(tweet.content.text)}</p>
+      <footer> ${escape(daysAgo(tweet.created_at))}
         <div class="icons">
           <i class="fa fa-flag" aria-hidden="true"></i>
           <i class="fa fa-retweet" aria-hidden="true"></i>
@@ -77,7 +90,63 @@ function createTweetElement(tweet) {
   return $tweet;
 };
 
+//currently returns text=[inputted text]
+function sendNewTweet(event) {
+  event.preventDefault();
+  const $form = $(this);
 
-$(document).ready(function() {
-  renderTweets(tweetData);
+  $.ajax({
+    type: "POST",
+    url: "/tweets",
+    data: $form.serialize()
+  })
+
+  console.log($form.serialize());
+
+  // .done(() => {
+  //   const type = $form.find("input[name="type"]").val();
+  //   console.log(type);
+  // })
+}
+
+//currently console logs all tweet objects created
+function loadTweets(tweetData) {
+  $.getJSON("/tweets")
+    .done((tweetData) => {
+      console.log(tweetData);
+    })
+    .done((tweetData) => {
+      renderTweets(tweetData)
+    })
+}
+
+const $form = $("#send-tweet");
+
+$form.on("submit", sendNewTweet);
+
+loadTweets(tweetData);
+//renderTweets(tweetData);
+
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
