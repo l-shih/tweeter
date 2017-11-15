@@ -65,30 +65,46 @@ function escape(str) {
 }
 
 function renderTweets(tweet) {
-  for (let tweet in tweetData) {
-    createTweetElement(tweetData[tweet]);
+  for (let tweetId in tweetData) {
+    let tweet = tweetData[tweetId];
+    let $tweet = $("section.tweets-dash").append(`
+      <article class="tweet">
+        <header>
+          <img class="avatar" src="${escape(tweet.user.avatars.small)}" alt=""></img>
+          <h2>${escape(tweet.user.name)}</h2>
+          <h4>${escape(tweet.user.handle)}</h4>
+        </header>
+        <p>${escape(tweet.content.text)}</p>
+        <footer> ${escape(daysAgo(tweet.created_at))}
+          <div class="icons">
+            <i class="fa fa-flag" aria-hidden="true"></i>
+            <i class="fa fa-retweet" aria-hidden="true"></i>
+            <i class="fa fa-heart" aria-hidden="true"></i>
+          </div>
+        </footer>
+      </article>`);
   }
 }
 
-function createTweetElement(tweet) {
-  const $tweet = $("section.tweets-dash").append(`
-    <article class="tweet">
-      <header>
-        <img class="avatar" src="${escape(tweet.user.avatars.small)}" alt=""></img>
-        <h2>${escape(tweet.user.name)}</h2>
-        <h4>${escape(tweet.user.handle)}</h4>
-      </header>
-      <p>${escape(tweet.content.text)}</p>
-      <footer> ${escape(daysAgo(tweet.created_at))}
-        <div class="icons">
-          <i class="fa fa-flag" aria-hidden="true"></i>
-          <i class="fa fa-retweet" aria-hidden="true"></i>
-          <i class="fa fa-heart" aria-hidden="true"></i>
-        </div>
-      </footer>
-    </article>`);
-  return $tweet;
-};
+// function createTweetElement(tweet) {
+//   const $tweet = $("section.tweets-dash").append(`
+//     <article class="tweet">
+//       <header>
+//         <img class="avatar" src="${escape(tweet.user.avatars.small)}" alt=""></img>
+//         <h2>${escape(tweet.user.name)}</h2>
+//         <h4>${escape(tweet.user.handle)}</h4>
+//       </header>
+//       <p>${escape(tweet.content.text)}</p>
+//       <footer> ${escape(daysAgo(tweet.created_at))}
+//         <div class="icons">
+//           <i class="fa fa-flag" aria-hidden="true"></i>
+//           <i class="fa fa-retweet" aria-hidden="true"></i>
+//           <i class="fa fa-heart" aria-hidden="true"></i>
+//         </div>
+//       </footer>
+//     </article>`);
+//   return $tweet;
+// };
 
 //currently returns text=[inputted text]
 function sendNewTweet(event) {
