@@ -47,6 +47,13 @@ const tweetData = [
 
 $(() => {
 
+$("section.new-tweet").css("display", "none");
+
+$("#nav-bar button.compose").on("click", function() {
+  $("section.new-tweet").slideToggle();
+  $("section.new-tweet textarea").select();
+})
+
 function daysAgo(numDate) {
   const dateObj = new Date(numDate);
   const compare = Date.now() - dateObj;
@@ -62,6 +69,19 @@ function escape(str) {
   const div = document.createElement('div');
   div.appendChild(document.createTextNode(str));
   return div.innerHTML;
+}
+
+function clickSlide() {
+  const clicked = true;
+  const composeBox = $("section.new-tweet")
+  $("#nav-bar.compose").on("click", function() {
+    console.log("haaaaay");
+    if (clicked) {
+      composeBox.css({"top": 0});
+    } else {
+      composeBox.css({"top": "-40px"});
+    }
+  })
 }
 
 function renderTweets(tweets) {
@@ -121,6 +141,7 @@ const $form = $("#send-tweet");
 $form.on("submit", sendNewTweet);
 
 loadTweets(tweetData);
+
 
 });
 
