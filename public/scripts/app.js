@@ -1,5 +1,4 @@
 $(() => {
-
   function main() {
     // the compose box is hidden on page load
     $(".new-tweet").hide();
@@ -25,7 +24,7 @@ $(() => {
     return div.innerHTML;
   }
 
-  // note that this web app is run on Vagrant, so the time returned .fromNow() may not match the actual time exactly
+  // note that this web app may be run on Vagrant, so the time returned .fromNow() may not match the actual time exactly
   function daysAgo(numDate) {
     return moment(numDate).fromNow();
   }
