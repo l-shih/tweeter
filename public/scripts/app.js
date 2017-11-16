@@ -73,10 +73,13 @@ $(() => {
   }
 
   main();
+
 });
 
 
-
+$(document).on("click", ".fa-heart", function () {
+  alert("haaaaay");
+});
 
 
 
