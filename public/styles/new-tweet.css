@@ -1,4 +1,4 @@
-section.new-tweet {
+.new-tweet {
   background-color: #D9DDDE;
   border: solid 1px;
   border-radius: 5px;
@@ -6,19 +6,19 @@ section.new-tweet {
   padding: 5px;
 }
 
-section.new-tweet h2 {
+.new-tweet h2 {
   border-bottom: solid black 2px;
   margin-top: 5px;
 }
 
-section.new-tweet textarea {
+.new-tweet textarea {
   margin: auto;
   padding: 5px;
   width: 100%;
 
 }
 
-section.new-tweet span#counter {
+.new-tweet span#counter {
   float: right;
   font-size: 14px;
   font-style: italic;
