@@ -8,7 +8,7 @@ $(() => {
     $("#nav-bar button.compose").on("click", function() {
       $(".new-tweet").slideToggle();
       $(".new-tweet textarea").select();
-    })
+    });
 
     loadTweets();
 
@@ -58,18 +58,18 @@ $(() => {
     event.preventDefault();
     const $form = $(this);
     const tweetText = $form.find('textarea[name="text"]').val();
-    if (tweetText.length > 140) return alert(`Your tweet is over 140 characters long. Please try again.`);
-    if (!tweetText) return alert(`You didn't seem to tweet anything. Please try again.`);
+    if (tweetText.length > 140) { return alert(`Your tweet is over 140 characters long. Please try again.`); }
+    if (!tweetText) { return alert(`You didn't seem to tweet anything. Please try again.`); }
     $.ajax({
       type: "POST",
       url: "/tweets",
       data: $form.serialize()
     })
-    .done(() => {
-      loadTweets();
-      $(".new-tweet textarea").val('');
-      $("#counter").text(140);
-    })
+      .done(() => {
+        loadTweets();
+        $(".new-tweet textarea").val('');
+        $("#counter").text(140);
+      });
   }
 
   main();
