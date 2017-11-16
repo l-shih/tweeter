@@ -1,5 +1,3 @@
-
-
 $(document).ready(function() {
   function countChar() {
     const maxLength = 140;
