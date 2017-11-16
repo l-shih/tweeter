@@ -25,6 +25,7 @@ $(() => {
     return div.innerHTML;
   }
 
+  // note that this web app is run on Vagrant, so the time returned .fromNow() may not match the actual time exactly
   function daysAgo(numDate) {
     return moment(numDate).fromNow();
   }
@@ -72,6 +73,7 @@ $(() => {
     })
   }
 
+  // initializes Tweeter
   main();
 
 });
