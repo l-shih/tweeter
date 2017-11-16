@@ -36,8 +36,12 @@ MongoClient.connect(MONGODB_URI, (err, db) => {
   app.use("/tweets", tweetsRoutes);
 
   // We now have connection to MongoDB
-  console.log("Example app listening on port " + PORT);
+
   console.log(`Connected to mongodb: ${MONGODB_URI}`);
+
+  app.listen(PORT, () => {
+    console.log("Example app listening on port " + PORT);
+  });
 
 
 });
