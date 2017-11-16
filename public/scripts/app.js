@@ -7,36 +7,14 @@ $(() => {
     $("#nav-bar button.compose").on("click", function() {
       $(".new-tweet").slideToggle();
       $(".new-tweet textarea").select();
-
-      // this will hide the compose button when .new-tweet is visible
-      // if($(".new-tweet").is(":visible")) {
-      //   $("#nav-bar button.compose").hide();
-      // }
-
-      // $("#nav-bar button.compose")
     })
 
-    // composeBox();
-    // this is run whenever page is loaded
     loadTweets();
 
     // this is run only when a user submits a new tweet
     $("#send-tweet").on("submit", sendNewTweet);
   }
 
-  // function composeBox() {
-  //   let newTweetBox = $(".new-tweet");
-  //   const composeButton = $("#nav-bar button.compose");
-
-  //   if ((newTweetBox).is(":visible")) {
-  //     console.log("haaay");
-  //     composeButton.hide();
-  //   } else {
-  //     composeButton.show();
-  //   }
-
-
-  // }
   // this ensures that use cannot input script that will mess with other user's experience with Tweeter
   // currently is vulnerable to attacks via the URL of user's avatar
   function escape(str) {
@@ -95,7 +73,6 @@ $(() => {
 
   // initializes Tweeter
   main();
-
 });
 
 
