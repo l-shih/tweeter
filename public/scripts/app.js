@@ -31,18 +31,20 @@ $(() => {
 
   function renderTweets(tweets) {
     const HTML = tweets.map((tweet) =>
-      `<article class="tweet">
+      `<article class="tweet" data-tweet-id="${tweet._id}">
         <header>
           <img class="avatar" src="${tweet.user.avatars.small}" alt=""></img>
           <h2>${escape(tweet.user.name)}</h2>
           <h4>${escape(tweet.user.handle)}</h4>
         </header>
         <p>${escape(tweet.content.text)}</p>
-        <footer> ${daysAgo(tweet.created_at)}
+        <footer>
+          <div class="tweet-date">${daysAgo(tweet.created_at)}</div>
+          <div class="tweet-likes">${tweet.likes} likes </div>
           <div class="icons">
             <i class="fa fa-flag" aria-hidden="true"></i>
             <i class="fa fa-retweet" aria-hidden="true"></i>
-            <i class="fa fa-heart" aria-hidden="true"></i>
+            <i class="fa fa-heart" aria-hidden="true" data-tweet-id="${tweet._id}"></i>
           </div>
         </footer>
       </article>`).reverse();
@@ -76,9 +78,11 @@ $(() => {
 
 });
 
-
 $(document).on("click", ".fa-heart", function () {
-  alert("haaaaay");
+  //alert($(this).data("tweet-id"));
+
+  var tweetLikedId = $(this).data("tweet-id");
+  alert(tweetLikedId);
 });
 
 

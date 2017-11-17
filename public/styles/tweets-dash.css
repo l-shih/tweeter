@@ -1,29 +1,29 @@
-section.tweets-dash {
+.tweets-dash {
   background-color: white;
 }
 
-article.tweet {
+.tweet {
   border: solid lightgray 1px;
   border-radius: 5px;
   margin: 1em 2em 1em 2em;
   overflow: hidden;
 }
 
-article.tweet header {
+.tweet header {
   background-color: #f4f4f4;
   border-bottom: solid lightgray 1px;
   overflow: auto;
   padding: 0.75em;
 }
 
-article.tweet header img.avatar {
+.tweet header img.avatar {
   border-radius: 5px;
   float: left;
   height: 60px;
   width: 60px;
 }
 
-article.tweet header h2 {
+.tweet header h2 {
   float: left;
   font-size: 25px;
   font-weight: bold;
@@ -31,7 +31,7 @@ article.tweet header h2 {
   padding-left: 10px;
 }
 
-article.tweet header h4 {
+.tweet header h4 {
   color: darkgray;
   display: inline-block;
   float: right;
@@ -41,22 +41,28 @@ article.tweet header h4 {
   padding-top: 10px;
 }
 
-article.tweet footer {
+.tweet footer {
   border-top: solid lightgray 1px;
   font-size: 12px;
   padding: 10px 5px 10px 5px;
 }
 
-article.tweet footer div.icons {
+.tweet-date, .tweet-likes {
+  float: left;
+  margin-bottom: 6px;
+  margin-left: 5px;
+}
+
+.icons {
   float: right;
   opacity: 0;
 }
 
-article:hover footer div.icons {
+.icons:hover {
   opacity: 1;
 }
 
-article.tweet p {
+.tweet p {
   margin: 0;
   padding: 2em 1em 2em 1em;
 }
