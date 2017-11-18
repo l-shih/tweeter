@@ -47,7 +47,7 @@
   padding: 10px 5px 10px 5px;
 }
 
-.tweet-date, .tweet-likes {
+.tweet-date, .tweet-likes-number, .tweet-likes-text {
   float: left;
   margin-bottom: 6px;
   margin-left: 5px;

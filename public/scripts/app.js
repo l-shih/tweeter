@@ -40,11 +40,12 @@ $(() => {
         <p>${escape(tweet.content.text)}</p>
         <footer>
           <div class="tweet-date">${daysAgo(tweet.created_at)}</div>
-          <div class="tweet-likes">${tweet.likes} likes </div>
+          <div class="tweet-likes-number">${tweet.likes}</div>
+          <div class="tweet-likes-text">likes</div>
           <div class="icons">
             <i class="fa fa-flag" aria-hidden="true"></i>
             <i class="fa fa-retweet" aria-hidden="true"></i>
-            <i class="fa fa-heart" aria-hidden="true" data-tweet-id="${tweet._id}"></i>
+            <i class="fa fa-heart" aria-hidden="true"></i>
           </div>
         </footer>
       </article>`).reverse();
@@ -79,11 +80,21 @@ $(() => {
 });
 
 $(document).on("click", ".fa-heart", function () {
-  //alert($(this).data("tweet-id"));
-
-  var tweetLikedId = $(this).data("tweet-id");
-  alert(tweetLikedId);
+  const likeButton = $(this);
+  const tweetArticle = likeButton.closest(".tweet");
+  const tweetLikedId = tweetArticle.data("tweet-id");
+  const url = `/tweets/${tweetLikedId}/like`;
+  //Post request to like a tweet
+  $.ajax({
+    type: "POST",
+    url: url,
+  })
+    .done((tweet) => {
+      console.log(tweet);
+      tweetArticle.find(".tweet-likes-number").text(tweet.likes);
+    });
 });
+
 
 
 
