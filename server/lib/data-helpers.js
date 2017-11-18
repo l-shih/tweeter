@@ -20,16 +20,6 @@ module.exports = function makeDataHelpers(db) {
       db.collection("tweets").updateOne({"_id" : new ObjectId(tweetId)}, {$inc: {likes: 1}}, () => {
         db.collection('tweets').findOne({"_id" : new ObjectId(tweetId)}, callback);
       });
-
-      // // this will console log the document to see if likes go up
-      // db.collection("tweets").find({"_id" : new ObjectId(`${tweetId}`)}).toArray((err, tweetId) => {
-      //   if (err) {
-      //     return err;
-      //   }
-      //   console.log(tweetId)
-      // });
     }
   };
 }
-
-//create the function which is called which updates the db

@@ -90,7 +90,6 @@ $(document).on("click", ".fa-heart", function () {
     url: url,
   })
     .done((tweet) => {
-      console.log(tweet);
       tweetArticle.find(".tweet-likes-number").text(tweet.likes);
     });
 });

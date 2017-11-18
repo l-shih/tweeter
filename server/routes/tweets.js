@@ -56,5 +56,3 @@ module.exports = function(DataHelpers) {
   return tweetsRoutes;
 
 }
-
-//a reciever for the post /id. Call a function you create in data hlepers which will update the DB
